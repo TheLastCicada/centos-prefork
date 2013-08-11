@@ -20,6 +20,6 @@ if [ -f /etc/yum.repos.d/remi.repo ]
 		rm remi-release-6*.rpm*
 fi
 
-yum install -y httpd mysql-server php php-soap php-pear php-gd php-mbstring php-mcrypt php-mysql php-pecl-apc php-pecl-memcache php-xml vim-enhanced
+yum install -y httpd mysql-server php php-soap php-pear php-gd php-mbstring php-mcrypt php-mysql php-pecl-apc php-pecl-memcache php-xml vim-enhanced git
 
 
