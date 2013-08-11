@@ -57,7 +57,7 @@ else
 	git pull
 fi
 
-version=trunk
+version=html
 site_name=${version}
 location=/var/www/${site_name}
 index_location=${location}/index.php
@@ -81,6 +81,6 @@ else
 	git pull
 fi
 
-ln -sf /vagrant/config/wp-config.php /var/www/trunk/wp-config.php | echo " * /vagrant/config/wp-config.php -> /var/www/trunk/wp-config.php"
+ln -sf /vagrant/config/wp-config.php /var/www/html/wp-config.php | echo " * /vagrant/config/wp-config.php -> /var/www/trunk/wp-config.php"
 
 
