@@ -57,6 +57,7 @@ wpclone=/usr/local/src/wordpress
 if [ ! -d ${wpclone} ]
 then
 	printf "\nDownloading WordPress from git.....https://github.com/WordPress/WordPress.git\n"
+	mkdir -p /usr/local/src/
 	git clone https://github.com/WordPress/WordPress.git ${wpclone}
 else
 	printf "\nUpdating WordPress.....\n"
@@ -74,7 +75,7 @@ printf "\nBuilding ${site_name}.dev\n"
 if [ ! -f ${index_location} ]
 then
 	printf " * Copying WordPress files for ${site_name}.dev\n"
-	cp -r ${wpclone} ${location}/
+	cp -rp ${wpclone} ${location}
 	if [ ! -f ${index_location} ]
 	then
 		printf "   ...Failed to copy WordPress ${site}.dev files\n"
@@ -92,6 +93,6 @@ else
 	git pull
 fi
 
-ln -sf /vagrant/config/wp-config.php /var/www/html/wp-config.php | echo " * /vagrant/config/wp-config.php -> /var/www/trunk/wp-config.php"
+ln -sf /vagrant/config/wp-config.php ${config_location} | echo " * /vagrant/config/wp-config.php -> /var/www/html/wp-config.php"
 
 echo "<?php phpinfo(); ?>" > /var/www/html/info.php
