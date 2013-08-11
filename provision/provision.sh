@@ -95,6 +95,8 @@ fi
 ln -sf /vagrant/config/wp-config.php ${config_location} | echo " * /vagrant/config/wp-config.php -> /var/www/html/wp-config.php"
 cp -p /home/vagrant/prefork/prefork.ini ${location}/prefork.ini | echo " * /home/vagrant/prefork/prefork.ini -> ${location}/prefork.ini"
 cp -p /home/vagrant/prefork/prefork.php ${location}/prefork.php | echo " * /home/vagrant/prefork/prefork.ini -> ${location}/prefork.ini"
+mv ${index_location} ${location}/index2.php
+cp -p /vagrant/config/index.php ${index_location}
 
 echo "<?php phpinfo(); ?>" > /var/www/html/info.php
 
