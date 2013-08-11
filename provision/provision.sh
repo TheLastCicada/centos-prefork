@@ -58,18 +58,4 @@ else
 	git pull
 fi
 
-#if [ ! -f ${config_location} ]
-#then
-#	printf " * Writing ${config_location}"
-#	cd ${location}
-#	wp core config --dbname=${site_name} --dbuser=wp --dbpass=wp --quiet
-#	wp core install --url=${site_name}.dev --quiet --title="${site_name} Dev" --admin_name=admin --admin_email="admin@local.dev" --admin_password="password"
-#	if [ ! -f ${config_location} ]
-#	then
-#		printf "   ...Failed to write ${config_location}"
-#	else
-#		printf "   ...${config_location} written"
-#	fi
-#else
-#	printf " * Skip writing ${config_location}, already written"
-#fi
+ln -sf /vagrant/config/wp-config.php /var/www/trunk/wp-config.php | echo " * /vagrant/config/wp-config.php -> /var/www/trunk/wp-config.php"
