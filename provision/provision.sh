@@ -44,3 +44,43 @@ printf "\n" | /usr/local/bin/pecl install libevent-beta
 echo "extension=libevent.so" >> /etc/php.ini
 cp /vagrant/php.conf /etc/httpd/conf.d/php.conf
 service httpd restart
+
+# Get WordPress
+wpclone=/usr/local/src/wordpress
+if [ ! -d ${wpclone} ]
+then
+	printf "\nDownloading WordPress from git.....https://github.com/WordPress/WordPress.git\n"
+	git clone https://github.com/WordPress/WordPress.git ${wpclone}
+else
+	printf "\nUpdating WordPress.....\n"
+	cd ${wpclone}
+	git pull
+fi
+
+version=trunk
+site_name=${version}
+location=/var/www/${site_name}
+index_location=${location}/index.php
+config_location=${location}/wp-config.php
+
+printf "\nBuilding ${site_name}.dev\n"
+if [ ! -f ${index_location} ]
+then
+	printf " * Copying WordPress files for ${site_name}.dev\n"
+	cp -r ${wpclone} ${location}/
+	if [ ! -f ${index_location} ]
+	then
+		printf "   ...Failed to copy WordPress ${site}.dev files\n"
+	else
+		printf "   ...${site_name}.dev files copied\n"
+	fi
+else
+	printf " * Skip setting up files at ${location}, already setup\n"
+	printf " * Pulling latest core changes to ${location}\n"
+	cd ${location}
+	git pull
+fi
+
+ln -sf /vagrant/config/wp-config.php /var/www/trunk/wp-config.php | echo " * /vagrant/config/wp-config.php -> /var/www/trunk/wp-config.php"
+
+
