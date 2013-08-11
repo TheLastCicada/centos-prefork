@@ -91,11 +91,11 @@ Vagrant.configure("2") do |config|
   # provision directory. If it is detected that a provision-custom.sh script has been
   # created, that is run as a replacement. This is an opportunity to replace the entirety
   # of the provisioning provided by default.
-#  if File.exists?('provision/provision-custom.sh') then
-#    config.vm.provision :shell, :path => File.join( "provision", "provision-custom.sh" )
-#  else
-#    config.vm.provision :shell, :path => File.join( "provision", "provision.sh" )
-#  end
+  if File.exists?('provision/provision-custom.sh') then
+    config.vm.provision :shell, :path => File.join( "provision", "provision-custom.sh" )
+  else
+    config.vm.provision :shell, :path => File.join( "provision", "provision.sh" )
+  end
 
   # provision-post.sh acts as a post-hook to the default provisioning. Anything that should
   # run after the shell commands laid out in provision.sh or provision-custom.sh should be
