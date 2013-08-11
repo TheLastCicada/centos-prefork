@@ -47,8 +47,10 @@ else
 	printf "\n" | /usr/local/bin/pecl install libevent-beta
 	echo "extension=libevent.so" >> /etc/php.ini
 	cp /vagrant/php.conf /etc/httpd/conf.d/php.conf
-	service httpd restart
 fi
+
+service httpd restart
+service iptables stop
 
 # Get WordPress
 wpclone=/usr/local/src/wordpress
@@ -92,4 +94,4 @@ fi
 
 ln -sf /vagrant/config/wp-config.php /var/www/html/wp-config.php | echo " * /vagrant/config/wp-config.php -> /var/www/trunk/wp-config.php"
 
-
+echo "<?php phpinfo(); ?>" > /var/www/html/info.php
