@@ -20,6 +20,27 @@ if [ -f /etc/yum.repos.d/remi.repo ]
 		rm remi-release-6*.rpm*
 fi
 
-yum install -y httpd mysql-server php php-soap php-pear php-gd php-mbstring php-mcrypt php-mysql php-pecl-apc php-pecl-memcache php-xml vim-enhanced git
+#yum install -y httpd mysql-server php php-soap php-pear php-gd php-mbstring php-mcrypt php-mysql php-pecl-apc php-pecl-memcache php-xml vim-enhanced git
+yum install -y httpd mysql-server httpd-devel patch libpng-devel apr-devel libxml2-devel zlib zlib-devel libmcrypt-devel mysql-devel openssl-devel vim-enhanced git libevent2 libevent-devel autoconf
 
+service mysqld start
+/usr/bin/mysqladmin -u root password 'blank'
 
+mkdir prefork
+git clone https://github.com/Automattic/prefork.git ./prefork
+
+mkdir /etc/php.d
+wget http://us.php.net/get/php-5.4.17.tar.gz/from/us3.php.net/mirror
+tar -zxvf php-*.tar.gz
+cd php-5.4.17
+patch  -p 1 -i ../prefork/php_cli.c.diff
+./configure --with-config-file-path=/etc --with-config-file-scan-dir=/etc/php.d --with-apxs2 --with-libdir=lib64 --enable-mbstring --with-openssl --with-soap --with-mcrypt --with-gd --with-libevent --with-memcached --with-pear --with-mysql --with-mysqli --with-xml --with-zlib
+make clean
+make
+make install
+/home/vagrant/php-5.4.17/libtool --finish /home/vagrant/php-5.4.17/libs
+cp /home/vagrant/php-5.4.17/php.ini-recommended /etc/php.ini
+printf "\n" | /usr/local/bin/pecl install libevent-beta
+echo "extension=libevent.so" >> /etc/php.ini
+cp /vagrant/php.conf /etc/httpd/conf.d/php.conf
+service httpd restart
