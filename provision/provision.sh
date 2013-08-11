@@ -49,7 +49,6 @@ else
 	cp /vagrant/php.conf /etc/httpd/conf.d/php.conf
 fi
 
-service httpd restart
 service iptables stop
 
 # Get WordPress
@@ -96,3 +95,5 @@ fi
 ln -sf /vagrant/config/wp-config.php ${config_location} | echo " * /vagrant/config/wp-config.php -> /var/www/html/wp-config.php"
 
 echo "<?php phpinfo(); ?>" > /var/www/html/info.php
+
+service httpd restart
