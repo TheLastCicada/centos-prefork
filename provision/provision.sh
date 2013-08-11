@@ -35,15 +35,15 @@ else
 fi
 
 # WP-CLI Install
-if [ ! -d /srv/www/wp-cli ]
+if [ ! -d /usr/local/wp-cli ]
 then
 	printf "\nDownloading wp-cli.....http://wp-cli.org\n"
-	git clone git://github.com/wp-cli/wp-cli.git /srv/www/wp-cli
-	cd /srv/www/wp-cli
+	git clone git://github.com/wp-cli/wp-cli.git /usr/local/wp-cli
+	cd /usr/local/wp-cli
 	composer install
 else
 	printf "\nUpdating wp-cli....\n"
-	cd /srv/www/wp-cli
+	cd /usr/local/wp-cli
 	git pull --rebase origin master
 	composer update
 fi
