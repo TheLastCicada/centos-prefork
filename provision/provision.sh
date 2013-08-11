@@ -93,6 +93,8 @@ else
 fi
 
 ln -sf /vagrant/config/wp-config.php ${config_location} | echo " * /vagrant/config/wp-config.php -> /var/www/html/wp-config.php"
+cp -p /home/vagrant/prefork/prefork.ini ${location}/prefork.ini | echo " * /home/vagrant/prefork/prefork.ini -> ${location}/prefork.ini"
+cp -p /home/vagrant/prefork/prefork.php ${location}/prefork.php | echo " * /home/vagrant/prefork/prefork.ini -> ${location}/prefork.ini"
 
 echo "<?php phpinfo(); ?>" > /var/www/html/info.php
 
