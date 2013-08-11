@@ -40,20 +40,20 @@ location=/var/www/${site_name}
 index_location=${location}/index.php
 config_location=${location}/wp-config.php
 
-printf "\nBuilding ${site_name}.dev"
+printf "\nBuilding ${site_name}.dev\n"
 if [ ! -f ${index_location} ]
 then
-	printf " * Copying WordPress files for ${site_name}.dev"
+	printf " * Copying WordPress files for ${site_name}.dev\n"
 	cp -r ${wpclone} ${location}/
 	if [ ! -f ${index_location} ]
 	then
-		printf "   ...Failed to copy WordPress ${site}.dev files"
+		printf "   ...Failed to copy WordPress ${site}.dev files\n"
 	else
-		printf "   ...${site_name}.dev files copied"
+		printf "   ...${site_name}.dev files copied\n"
 	fi
 else
-	printf " * Skip setting up files at ${location}, already setup"
-	printf " * Pulling latest core changes to ${location}"
+	printf " * Skip setting up files at ${location}, already setup\n"
+	printf " * Pulling latest core changes to ${location}\n"
 	cd ${location}
 	git pull
 fi
