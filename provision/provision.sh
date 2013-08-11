@@ -21,7 +21,7 @@ if [ -f /etc/yum.repos.d/remi.repo ]
 fi
 
 #yum install -y httpd mysql-server php php-soap php-pear php-gd php-mbstring php-mcrypt php-mysql php-pecl-apc php-pecl-memcache php-xml vim-enhanced git
-yum install -y httpd mysql-server httpd-devel patch libpng-devel apr-devel libxml2-devel zlib zlib-devel libmcrypt-devel mysql-devel openssl-devel vim-enhanced git libevent2 libevent-devel autoconf
+yum install -y httpd mysql-server httpd-devel patch libpng-devel apr-devel libxml2-devel zlib zlib-devel libmcrypt-devel mysql-devel openssl-devel vim-enhanced git libevent2 libevent-devel autoconf nano
 
 service mysqld start
 /usr/bin/mysqladmin -u root password 'blank'
@@ -38,7 +38,7 @@ else
 	tar -zxvf php-*.tar.gz
 	cd php-5.4.17
 	patch  -p 1 -i ../prefork/php_cli.c.diff
-	./configure --with-config-file-path=/etc --with-config-file-scan-dir=/etc/php.d --with-apxs2 --with-libdir=lib64 --enable-mbstring --with-openssl --with-soap --with-mcrypt --with-gd --with-libevent --with-memcached --with-pear --with-mysql --with-mysqli --with-xml --with-zlib
+	./configure --with-config-file-path=/etc --with-config-file-scan-dir=/etc/php.d --with-apxs2 --with-libdir=lib64 --enable-mbstring --with-openssl --with-soap --with-mcrypt --with-gd --with-libevent --with-memcached --enable-sockets --with-pear --with-mysql --with-mysqli --with-xml --with-zlib
 	make clean
 	make
 	make install
